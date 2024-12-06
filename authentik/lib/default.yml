@@ -10,6 +10,7 @@ postgresql:
   use_pgpool: false
   test:
     name: test_authentik
+  default_schema: public
   read_replicas: {}
   # For example
   # 0:
