@@ -82,6 +82,14 @@ To check if your config has been applied correctly, you can run the following co
 
 The PostgreSQL settings `HOST`, `PORT`, `USER`, and `PASSWORD` support hot-reloading. Adding and removing read replicas doesn't support hot-reloading.
 
+- `AUTHENTIK_POSTGRESQL__DEFAULT_SCHEMA` <span class="badge badge--version">authentik 2024.12+</span>
+
+    The name of the schema used by default in the database. Defaults to `public`.
+
+    It is only supported to change this value before the initial start of authentik.
+
+    When setting this value to any non-standard value, the schema must already exist in the database, and the user authentik connects with must have access to it. Additionally the `search_path` of the authentik database must be set to include this schema.
+
 ### Read replicas
 
 You can configure additional read replica databases that are used only for read operations. To configure authentik to use replicas, add the settings below to your [configuration file](./configuration.mdx#set-your-environment-variables). If you have multiple replicas, add additional settings for each replica, replacing the default `0` with a unique value for each additional replica.
@@ -117,7 +125,7 @@ When your PostgreSQL database(s) are running behind a connection pooler, like Pg
 
     Using a connection pooler in transaction pool mode (e.g. PgPool, or PgBouncer in transaction or statement pool mode) requires disabling server-side cursors, so this setting must be set to `false`.
 
-Additionally, you can set `AUTHENTIK_POSTGRESQL__CONN_HEALTH_CHECK` to perform health checks on persistent database connections before they are re-used.
+Additionally, you can set `AUTHENTIK_POSTGRESQL__CONN_HEALTH_CHECK` to perform health checks on persistent database connections before they are reused.
 
 ## Redis Settings
 
